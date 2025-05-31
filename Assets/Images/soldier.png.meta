@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5785ed22b08f45b499f484f79ce56758
+guid: 12fc9d753a76ed0488e5600b5eec9cdc
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -95,7 +95,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: soldier_0
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 259
+        width: 155
+        height: 217
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f457758ddffa9324ab0cd77712d7c572
+      internalID: 594943245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soldier_1
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 257
+        width: 155
+        height: 217
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c19de1d1728ecb642b77710cb0411823
+      internalID: 164361042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soldier_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 29
+        width: 157
+        height: 222
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee491a18a59d5c945a292d3809f5961e
+      internalID: -1534173899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soldier_3
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 28
+        width: 157
+        height: 225
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9c223e788abcce498e035715a37acc6
+      internalID: -330233478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -106,7 +190,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      soldier_0: 594943245
+      soldier_1: 164361042
+      soldier_2: -1534173899
+      soldier_3: -330233478
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

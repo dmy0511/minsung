@@ -18,16 +18,24 @@ public class PlayerController : MonoBehaviour
     public KeyCode rightKey = KeyCode.D;
     public KeyCode jumpKey = KeyCode.Space;
 
+    [Header("애니메이션 설정")]
+    public string idleAnimName = "Idle";
+    public string walkAnimName = "Walk";
+    public string jumpAnimName = "Jump";
+
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
     private bool isGrounded;
     private bool isJumping;
     private float moveInput;
+    private bool wasGrounded;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
         if (groundCheck == null)
         {
@@ -36,6 +44,14 @@ public class PlayerController : MonoBehaviour
             checkObj.transform.localPosition = new Vector3(0, -0.5f, 0);
             groundCheck = checkObj.transform;
         }
+
+        // 애니메이터가 없는 경우 경고
+        if (animator == null)
+        {
+            Debug.LogWarning("Animator 컴포넌트가 없습니다. 애니메이션을 재생하려면 Animator를 추가해주세요.");
+        }
+
+        wasGrounded = isGrounded;
     }
 
     void Update()
@@ -51,10 +67,9 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         CheckGrounded();
-
         HandleMovement();
-
         HandleJump();
+        UpdateAnimation();
     }
 
     void HandleInput()
@@ -65,7 +80,6 @@ public class PlayerController : MonoBehaviour
         {
             moveInput -= 1;
         }
-
         if (Input.GetKey(rightKey))
         {
             moveInput += 1;
@@ -74,6 +88,7 @@ public class PlayerController : MonoBehaviour
 
     void CheckGrounded()
     {
+        wasGrounded = isGrounded;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
@@ -93,6 +108,41 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             isJumping = false;
+        }
+    }
+
+    void UpdateAnimation()
+    {
+        if (animator == null) return;
+
+        // 점프 상태 확인 (공중에 있을 때)
+        if (!isGrounded)
+        {
+            PlayAnimation(jumpAnimName);
+        }
+        // 지면에 있을 때
+        else
+        {
+            // 움직이고 있는지 확인
+            if (Mathf.Abs(moveInput) > 0.1f)
+            {
+                PlayAnimation(walkAnimName);
+            }
+            else
+            {
+                PlayAnimation(idleAnimName);
+            }
+        }
+    }
+
+    void PlayAnimation(string animationName)
+    {
+        if (animator == null) return;
+
+        // 현재 재생 중인 애니메이션과 다른 경우에만 재생
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
+        {
+            animator.Play(animationName);
         }
     }
 

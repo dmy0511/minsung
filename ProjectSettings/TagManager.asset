@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Enemy
   - BigMushroom
+  - Ground
+  - Wall
+  - HealthUI
+  - Spear
   layers:
   - Default
   - TransparentFX
@@ -46,6 +50,12 @@ TagManager:
   - name: Door
     uniqueID: 1403942173
     locked: 0
+  - name: Boss
+    uniqueID: 116837931
+    locked: 0
+  - name: Scaffolding
+    uniqueID: 2685254019
+    locked: 0
   - name: Enemy
     uniqueID: 1641092127
     locked: 0
@@ -54,6 +64,9 @@ TagManager:
     locked: 0
   - name: Prison
     uniqueID: 267996679
+    locked: 0
+  - name: Bullet
+    uniqueID: 1543373913
     locked: 0
   - name: Deco
     uniqueID: 1393505743
