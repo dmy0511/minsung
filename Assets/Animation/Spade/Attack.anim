@@ -1031,7 +1031,7 @@ AnimationClip:
   - time: 0.33333334
     functionName: StartChargeFromAnimation
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 7260914549553053827, guid: fa37a33c038fee34c8808fbb702fdc4a, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

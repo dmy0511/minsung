@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
             groundCheck = checkObj.transform;
         }
 
-        // 애니메이터가 없는 경우 경고
         if (animator == null)
         {
             Debug.LogWarning("Animator 컴포넌트가 없습니다. 애니메이션을 재생하려면 Animator를 추가해주세요.");
@@ -115,15 +114,12 @@ public class PlayerController : MonoBehaviour
     {
         if (animator == null) return;
 
-        // 점프 상태 확인 (공중에 있을 때)
         if (!isGrounded)
         {
             PlayAnimation(jumpAnimName);
         }
-        // 지면에 있을 때
         else
         {
-            // 움직이고 있는지 확인
             if (Mathf.Abs(moveInput) > 0.1f)
             {
                 PlayAnimation(walkAnimName);
@@ -139,7 +135,6 @@ public class PlayerController : MonoBehaviour
     {
         if (animator == null) return;
 
-        // 현재 재생 중인 애니메이션과 다른 경우에만 재생
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
         {
             animator.Play(animationName);

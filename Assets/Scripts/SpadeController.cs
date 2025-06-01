@@ -5,8 +5,8 @@ using UnityEngine;
 public class SpadeController : MonoBehaviour
 {
     [Header("플레이어 감지 설정")]
-    public float detectionRange = 5f;
-    public float detectionHeightOffset = 1f;
+    public Vector2 detectionBoxSize = new Vector2(10f, 8f);
+    public Vector2 detectionBoxOffset = Vector2.zero;
     public LayerMask playerLayer = 1;
 
     [Header("머리 밟기 감지")]
@@ -18,7 +18,7 @@ public class SpadeController : MonoBehaviour
     public float crushAnimationTime = 0.2f;
 
     [Header("돌진 설정")]
-    public float chargeSpeed = 8f;
+    public float chargeSpeed = 15f;
     public float chargeDuration = 1f;
     public float cooldownTime = 2f;
 
@@ -159,10 +159,14 @@ public class SpadeController : MonoBehaviour
 
     void HandleChargingState()
     {
-        rb.velocity = chargeDirection * chargeSpeed;
+        Vector2 targetVelocity = chargeDirection * chargeSpeed;
+        rb.velocity = targetVelocity;
+
+        Debug.Log($"Charging! Velocity set to: {targetVelocity}, Actual RB velocity: {rb.velocity}");
 
         if (stateTimer >= chargeDuration)
         {
+            Debug.Log("Charge duration ended");
             StartCooldown();
         }
     }
@@ -182,8 +186,16 @@ public class SpadeController : MonoBehaviour
     {
         if (player == null) return false;
 
-        float distance = Vector2.Distance(transform.position, player.position);
-        return distance <= detectionRange;
+        Vector2 boxCenter = (Vector2)transform.position + detectionBoxOffset;
+        Vector2 playerPos = player.position;
+
+        float halfWidth = detectionBoxSize.x * 0.5f;
+        float halfHeight = detectionBoxSize.y * 0.5f;
+
+        bool insideX = playerPos.x >= boxCenter.x - halfWidth && playerPos.x <= boxCenter.x + halfWidth;
+        bool insideY = playerPos.y >= boxCenter.y - halfHeight && playerPos.y <= boxCenter.y + halfHeight;
+
+        return insideX && insideY;
     }
 
     void StartPreparing()
@@ -205,13 +217,20 @@ public class SpadeController : MonoBehaviour
 
     public void StartChargeFromAnimation()
     {
+        Debug.Log("=== Animation Event Called! ===");
+        Debug.Log($"Current State before change: {currentState}");
+        Debug.Log($"Charge Direction: {chargeDirection}");
+        Debug.Log($"Charge Speed: {chargeSpeed}");
+
         SetState(SpadeState.Charging);
+
+        Debug.Log($"State changed to: {currentState}");
     }
 
     void StartCooldown()
     {
         SetState(SpadeState.Cooldown);
-        
+
         PlayAnimation(idleAnimName);
     }
 
@@ -350,17 +369,30 @@ public class SpadeController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (currentState == SpadeState.Charging && other.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null && !playerHealth.IsInvincible())
+            {
+                playerHealth.TakeDamage(1);
+                Debug.Log("Spade가 플레이어에게 돌진 공격! (Trigger)");
+            }
+        }
+    }
+
     void OnDrawGizmosSelected()
     {
         if (showDetectionRange)
         {
-            Vector2 detectionCenter = (Vector2)transform.position + Vector2.up * detectionHeightOffset;
+            Vector2 boxCenter = (Vector2)transform.position + detectionBoxOffset;
 
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(detectionCenter, detectionRange);
+            Gizmos.DrawWireCube(boxCenter, detectionBoxSize);
 
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(detectionCenter, 0.1f);
+            Gizmos.DrawWireSphere(boxCenter, 0.1f);
 
             if (currentState == SpadeState.Preparing || currentState == SpadeState.Charging)
             {

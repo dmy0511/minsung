@@ -53,11 +53,14 @@ TagManager:
   - name: Boss
     uniqueID: 116837931
     locked: 0
+  - name: Enemy
+    uniqueID: 1641092127
+    locked: 0
   - name: Scaffolding
     uniqueID: 2685254019
     locked: 0
-  - name: Enemy
-    uniqueID: 1641092127
+  - name: Card
+    uniqueID: 1291087653
     locked: 0
   - name: Player
     uniqueID: 1090936321

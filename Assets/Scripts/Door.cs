@@ -65,7 +65,7 @@ public class Door : MonoBehaviour
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
 
-        if (enemies.Length == 0)
+        if (enemies.Length == 0 || enemiesRemainingMessage == null)
         {
             LoadNextScene();
         }

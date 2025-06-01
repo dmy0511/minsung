@@ -108,7 +108,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1641092127
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -108769013, guid: ebcc482f9b35df84f988eeafcff38985, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -147,7 +147,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!61 &3029187630121023378
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -261,16 +261,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a5ea82869bfb940ae3c7d46ffa0c99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 3
-  detectionHeightOffset: 0.68
+  detectionBoxSize: {x: 6, y: 1.32}
+  detectionBoxOffset: {x: 0, y: 0.66}
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
   headCheck: {fileID: 5526537389527820866}
-  headCheckRadius: 0.2
+  headCheckRadius: 0.13
   crushedScale: 0.25
   crushAnimationTime: 0.2
-  chargeSpeed: 3
+  chargeSpeed: 12.5
   chargeDuration: 1
   cooldownTime: 2
   idleAnimName: Idle
