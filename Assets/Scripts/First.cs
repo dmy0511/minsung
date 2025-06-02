@@ -73,20 +73,31 @@ public class First : MonoBehaviour
 
     void OnTimelineStopped(PlayableDirector director)
     {
-        // 타임라인이 끝나면 지정된 씬으로 전환
         LoadNextScene();
     }
 
     void LoadNextScene()
     {
-        // 씬 이름 확인
         if (string.IsNullOrEmpty(nextSceneName))
         {
-            Debug.LogWarning("다음 씬 이름이 지정되지 않았습니다!");
+            Debug.LogWarning("다음 씬 이름이 지정되지 않았습니다! 게임을 종료합니다.");
+
+            if (useTransitionEffect)
+            {
+                StartCoroutine(FadeAndQuitGame());
+            }
+            else
+            {
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+            }
+
             return;
         }
 
-        // 전환 효과 사용 여부에 따라 씬 로드 방식 결정
         if (useTransitionEffect)
         {
             StartCoroutine(FadeAndLoadScene());
@@ -99,10 +110,8 @@ public class First : MonoBehaviour
 
     IEnumerator FadeAndLoadScene()
     {
-        // 페이드 캔버스 활성화
         fadeCanvas.gameObject.SetActive(true);
 
-        // 페이드 인 효과 (투명 -> 불투명)
         float elapsedTime = 0;
         while (elapsedTime < transitionDuration)
         {
@@ -113,14 +122,34 @@ public class First : MonoBehaviour
             yield return null;
         }
 
-        // 완전히 불투명하게 설정
         fadeImage.color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, 1);
 
-        // 씬 로드
         SceneManager.LoadScene(nextSceneName);
     }
 
-    // 게임오브젝트가 비활성화되거나 제거될 때 이벤트 리스너 제거(메모리 누수 방지)
+    IEnumerator FadeAndQuitGame()
+    {
+        fadeCanvas.gameObject.SetActive(true);
+
+        float elapsedTime = 0;
+        while (elapsedTime < transitionDuration)
+        {
+            float alpha = Mathf.Clamp01(elapsedTime / transitionDuration);
+            fadeImage.color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, alpha);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        fadeImage.color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, 1);
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
+    }
+
     void OnDestroy()
     {
         if (timeline != null)

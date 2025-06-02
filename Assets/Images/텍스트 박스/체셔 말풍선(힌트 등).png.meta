@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -95,7 +95,49 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "\uCCB4\uC154 \uB9D0\uD48D\uC120(\uD78C\uD2B8 \uB4F1)_0"
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 173
+        width: 1518
+        height: 501
+      alignment: 9
+      pivot: {x: 0.45, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ab391031e1fc9e449b453c8586d82b9
+      internalID: -397814859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uCCB4\uC154 \uB9D0\uD48D\uC120(\uD78C\uD2B8 \uB4F1)_1"
+      rect:
+        serializedVersion: 2
+        x: 1684
+        y: 451
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f15336cd96ffc884eaf00714601cc8d4
+      internalID: -621310742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -106,7 +148,9 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "\uCCB4\uC154 \uB9D0\uD48D\uC120(\uD78C\uD2B8 \uB4F1)_0": -397814859
+      "\uCCB4\uC154 \uB9D0\uD48D\uC120(\uD78C\uD2B8 \uB4F1)_1": -621310742
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

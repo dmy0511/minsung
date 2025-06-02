@@ -170,12 +170,6 @@ public class PlayerHealth : MonoBehaviour
             yield return StartCoroutine(FadeIn());
 
             yield return new WaitForSecondsRealtime(gameOverDelay);
-
-            yield return StartCoroutine(FadeOut());
-        }
-        else
-        {
-            yield return new WaitForSecondsRealtime(gameOverDelay);
         }
 
         QuitGame();
@@ -196,23 +190,6 @@ public class PlayerHealth : MonoBehaviour
         }
 
         gameOverCanvasGroup.alpha = 1f;
-    }
-
-    IEnumerator FadeOut()
-    {
-        if (gameOverCanvasGroup == null) yield break;
-
-        float elapsedTime = 0f;
-        gameOverCanvasGroup.alpha = 1f;
-
-        while (elapsedTime < fadeOutDuration)
-        {
-            elapsedTime += Time.unscaledDeltaTime;
-            gameOverCanvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeOutDuration);
-            yield return null;
-        }
-
-        gameOverCanvasGroup.alpha = 0f;
     }
 
     void QuitGame()

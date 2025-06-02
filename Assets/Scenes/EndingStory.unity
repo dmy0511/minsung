@@ -1057,6 +1057,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1591748832}
   - component: {fileID: 1591748831}
+  - component: {fileID: 1591748833}
   m_Layer: 0
   m_Name: Ending
   m_TagString: Untagged
@@ -1130,6 +1131,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1591748833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591748830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d99535fcefcc5142aaaaaad83431420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeline: {fileID: 1591748831}
+  nextSceneName: 
+  allowSkip: 1
+  skipKey: 32
+  useTransitionEffect: 1
+  transitionDuration: 1
+  fadeColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

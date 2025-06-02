@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+
     private bool isGrounded;
     private bool isJumping;
     private float moveInput;
@@ -60,6 +61,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(jumpKey) && isGrounded)
         {
             isJumping = true;
+            
+            PlayAnimation(jumpAnimName);
         }
     }
 
@@ -138,6 +141,15 @@ public class PlayerController : MonoBehaviour
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
         {
             animator.Play(animationName);
+        }
+    }
+
+    public void ForcePlayJumpAnimation()
+    {
+        if (animator != null)
+        {
+            animator.Play(jumpAnimName, 0, 0f);
+            Debug.Log("적의 머리를 밟아서 점프 애니메이션 재생");
         }
     }
 

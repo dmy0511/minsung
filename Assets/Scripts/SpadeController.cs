@@ -34,6 +34,7 @@ public class SpadeController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private BoxCollider2D enemyCollider;
+    private BoxCollider2D triggerCollider;
 
     private enum SpadeState
     {
@@ -54,13 +55,37 @@ public class SpadeController : MonoBehaviour
     private Vector3 originalScale;
     private Vector2 originalColliderSize;
     private Vector2 originalColliderOffset;
+    private Vector3 originalHeadCheckPosition;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        enemyCollider = GetComponent<BoxCollider2D>();
+
+        BoxCollider2D[] colliders = GetComponents<BoxCollider2D>();
+
+        foreach (BoxCollider2D col in colliders)
+        {
+            if (col.isTrigger)
+            {
+                triggerCollider = col;
+            }
+            else
+            {
+                enemyCollider = col;
+            }
+        }
+
+        if (triggerCollider != null)
+        {
+            triggerCollider.enabled = false;
+            Debug.Log("트리거 콜라이더 초기 비활성화");
+        }
+        else
+        {
+            Debug.LogWarning("트리거 콜라이더를 찾을 수 없습니다. isTrigger가 true로 설정된 BoxCollider2D가 있는지 확인하세요.");
+        }
 
         originalScale = transform.localScale;
         if (enemyCollider != null)
@@ -76,6 +101,8 @@ public class SpadeController : MonoBehaviour
             checkObj.transform.localPosition = new Vector3(0, 0.5f, 0);
             headCheck = checkObj.transform;
         }
+
+        originalHeadCheckPosition = headCheck.localPosition;
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
@@ -152,7 +179,9 @@ public class SpadeController : MonoBehaviour
 
             if (spriteRenderer != null)
             {
-                spriteRenderer.flipX = chargeDirection.x > 0;
+                bool facingRight = chargeDirection.x > 0;
+                spriteRenderer.flipX = facingRight;
+                UpdateHeadCheckPosition(facingRight);
             }
         }
     }
@@ -182,6 +211,15 @@ public class SpadeController : MonoBehaviour
         }
     }
 
+    void UpdateHeadCheckPosition(bool facingRight)
+    {
+        if (headCheck != null)
+        {
+            float xPos = facingRight ? originalHeadCheckPosition.x : -originalHeadCheckPosition.x;
+            headCheck.localPosition = new Vector3(xPos, originalHeadCheckPosition.y, originalHeadCheckPosition.z);
+        }
+    }
+
     bool IsPlayerInRange()
     {
         if (player == null) return false;
@@ -207,7 +245,9 @@ public class SpadeController : MonoBehaviour
 
             if (spriteRenderer != null)
             {
-                spriteRenderer.flipX = chargeDirection.x > 0;
+                bool facingRight = chargeDirection.x > 0;
+                spriteRenderer.flipX = facingRight;
+                UpdateHeadCheckPosition(facingRight);
             }
         }
 
@@ -224,6 +264,8 @@ public class SpadeController : MonoBehaviour
 
         SetState(SpadeState.Charging);
 
+        EnableTriggerCollider();
+
         Debug.Log($"State changed to: {currentState}");
     }
 
@@ -231,11 +273,36 @@ public class SpadeController : MonoBehaviour
     {
         SetState(SpadeState.Cooldown);
 
+        DisableTriggerCollider();
+
         PlayAnimation(idleAnimName);
+    }
+
+    void EnableTriggerCollider()
+    {
+        if (triggerCollider != null)
+        {
+            triggerCollider.enabled = true;
+            Debug.Log("트리거 콜라이더 활성화 - 돌진 상태에서 플레이어 감지 가능");
+        }
+    }
+
+    void DisableTriggerCollider()
+    {
+        if (triggerCollider != null)
+        {
+            triggerCollider.enabled = false;
+            Debug.Log("트리거 콜라이더 비활성화 - 돌진 상태가 아님");
+        }
     }
 
     void SetState(SpadeState newState)
     {
+        if (currentState == SpadeState.Charging && newState != SpadeState.Charging)
+        {
+            DisableTriggerCollider();
+        }
+
         currentState = newState;
         stateTimer = 0f;
     }
@@ -269,6 +336,12 @@ public class SpadeController : MonoBehaviour
             if (playerRb != null && playerRb.velocity.y < 0)
             {
                 playerRb.velocity = new Vector2(playerRb.velocity.x, 10f);
+
+                PlayerController playerController = playerCollider.GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    playerController.ForcePlayJumpAnimation();
+                }
 
                 if (!isCrushed)
                 {
@@ -414,6 +487,9 @@ public class SpadeController : MonoBehaviour
         {
             GUI.Label(new Rect(10, 10, 200, 20), $"Spade State: {currentState}");
             GUI.Label(new Rect(10, 30, 200, 20), $"Timer: {stateTimer:F1}");
+
+            string triggerStatus = triggerCollider != null ? (triggerCollider.enabled ? "활성" : "비활성") : "없음";
+            GUI.Label(new Rect(10, 50, 200, 20), $"Trigger: {triggerStatus}");
         }
     }
 }

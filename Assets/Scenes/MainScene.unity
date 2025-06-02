@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 722.5, y: -220}
+  m_AnchoredPosition: {x: 659.1541, y: -132.9}
   m_SizeDelta: {x: 390, y: 155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &374557059
@@ -520,8 +520,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -685.64526, y: 328.51825}
-  m_SizeDelta: {x: 548.7095, y: 422.9635}
+  m_AnchoredPosition: {x: 659.1541, y: 211.6}
+  m_SizeDelta: {x: 601.6819, y: 469.9984}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &549563442
 MonoBehaviour:
@@ -543,7 +543,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1543672307, guid: 6beb4bae4450a1149be9920196fe07f2, type: 3}
+  m_Sprite: {fileID: 688578059, guid: 6beb4bae4450a1149be9920196fe07f2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -700,7 +700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 722.5, y: -410}
+  m_AnchoredPosition: {x: 659.1541, y: -319}
   m_SizeDelta: {x: 390, y: 155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1249721162
@@ -833,7 +833,7 @@ MonoBehaviour:
   useFadeTransition: 1
   fadeTransitionTime: 1
   startButton: {fileID: 374557059}
-  exitButton: {fileID: 1249721162}
+  quitButton: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
