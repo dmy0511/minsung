@@ -140,7 +140,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1641092127
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 450307672, guid: 41f83cbf08e6bc543ada762437cd7182, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   patrolDistance: 1
-  detectionRange: 3.75
+  detectionRange: 3.71
   detectionHeightOffset: 0.72
   playerLayer:
     serializedVersion: 2

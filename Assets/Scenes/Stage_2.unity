@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spade
       objectReference: {fileID: 0}
+    - target: {fileID: 7260914549553053827, guid: fa37a33c038fee34c8808fbb702fdc4a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
