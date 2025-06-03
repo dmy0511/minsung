@@ -74,6 +74,13 @@ public class HeartController : MonoBehaviour
         animator = GetComponent<Animator>();
         enemyCollider = GetComponent<BoxCollider2D>();
 
+        if (rb != null)
+        {
+            rb.freezeRotation = true;
+            rb.mass = 50f;
+            rb.drag = 3f;
+        }
+
         startPosition = transform.position;
 
         originalScale = transform.localScale;
@@ -120,6 +127,11 @@ public class HeartController : MonoBehaviour
         PlayAnimation(idleAnimName);
     }
 
+    void FixedUpdate()
+    {
+        PreventPlayerPush();
+    }
+
     void Update()
     {
         if (currentState != HeartState.Dead)
@@ -155,6 +167,22 @@ public class HeartController : MonoBehaviour
         UpdateStateTimer();
     }
 
+    void PreventPlayerPush()
+    {
+        if (currentState == HeartState.Crushed || currentState == HeartState.Dead)
+            return;
+
+        if (currentState == HeartState.Preparing || currentState == HeartState.Attacking || currentState == HeartState.Cooldown)
+        {
+            if (rb != null)
+            {
+                Vector2 velocity = rb.velocity;
+                velocity.x = 0f;
+                rb.velocity = velocity;
+            }
+        }
+    }
+
     void HandlePatrollingState()
     {
         if (player != null && IsPlayerInRange() && canAttack)
@@ -169,7 +197,10 @@ public class HeartController : MonoBehaviour
 
     void HandlePatrolMovement()
     {
-        rb.velocity = new Vector2(moveDirection * moveSpeed, rb.velocity.y);
+        if (rb != null)
+        {
+            rb.velocity = new Vector2(moveDirection * moveSpeed, rb.velocity.y);
+        }
 
         if (spriteRenderer != null)
         {
@@ -192,7 +223,10 @@ public class HeartController : MonoBehaviour
 
     void HandlePreparingState()
     {
-        rb.velocity = Vector2.zero;
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+        }
 
         if (player != null && spriteRenderer != null)
         {
@@ -204,7 +238,10 @@ public class HeartController : MonoBehaviour
 
     void HandleAttackingState()
     {
-        rb.velocity = Vector2.zero;
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+        }
 
         if (currentSpear == null)
         {
@@ -215,7 +252,10 @@ public class HeartController : MonoBehaviour
 
     void HandleCooldownState()
     {
-        rb.velocity = Vector2.zero;
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+        }
 
         if (stateTimer >= attackCooldown)
         {
@@ -461,6 +501,25 @@ public class HeartController : MonoBehaviour
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
         {
             animator.Play(animationName);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (playerRb != null && currentState != HeartState.Crushed && currentState != HeartState.Dead)
+            {
+                Vector2 pushDirection = (collision.transform.position - transform.position).normalized;
+                pushDirection.y = 0;
+                playerRb.AddForce(pushDirection * 3f, ForceMode2D.Impulse);
+
+                if (rb != null && currentState != HeartState.Patrolling)
+                {
+                    rb.velocity = Vector2.zero;
+                }
+            }
         }
     }
 

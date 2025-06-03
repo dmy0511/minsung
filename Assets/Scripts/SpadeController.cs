@@ -63,6 +63,14 @@ public class SpadeController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
+        if (rb != null)
+        {
+            rb.freezeRotation = true;
+            rb.mass = 100f;
+            rb.drag = 5f;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+
         BoxCollider2D[] colliders = GetComponents<BoxCollider2D>();
 
         foreach (BoxCollider2D col in colliders)
@@ -123,6 +131,11 @@ public class SpadeController : MonoBehaviour
         PlayAnimation(idleAnimName);
     }
 
+    void FixedUpdate()
+    {
+        PreventPlayerPush();
+    }
+
     void Update()
     {
         if (currentState != SpadeState.Dead)
@@ -158,6 +171,28 @@ public class SpadeController : MonoBehaviour
         UpdateStateTimer();
     }
 
+    void PreventPlayerPush()
+    {
+        if (currentState == SpadeState.Crushed || currentState == SpadeState.Dead)
+            return;
+
+        if (rb != null)
+        {
+            if (currentState != SpadeState.Charging)
+            {
+                Vector2 velocity = rb.velocity;
+                velocity.x = 0f;
+
+                if (velocity.y > 2f)
+                {
+                    velocity.y = Mathf.Min(velocity.y, 0f);
+                }
+
+                rb.velocity = velocity;
+            }
+        }
+    }
+
     void HandleIdleState()
     {
         if (player != null && IsPlayerInRange())
@@ -165,12 +200,18 @@ public class SpadeController : MonoBehaviour
             StartPreparing();
         }
 
-        rb.velocity = Vector2.zero;
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     void HandlePreparingState()
     {
-        rb.velocity = Vector2.zero;
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+        }
 
         if (player != null)
         {
@@ -189,6 +230,8 @@ public class SpadeController : MonoBehaviour
     void HandleChargingState()
     {
         Vector2 targetVelocity = chargeDirection * chargeSpeed;
+        
+        targetVelocity.y = rb.velocity.y;
         rb.velocity = targetVelocity;
 
         Debug.Log($"Charging! Velocity set to: {targetVelocity}, Actual RB velocity: {rb.velocity}");
@@ -202,7 +245,10 @@ public class SpadeController : MonoBehaviour
 
     void HandleCooldownState()
     {
-        rb.velocity = Vector2.zero;
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+        }
 
         if (stateTimer >= cooldownTime)
         {
@@ -438,6 +484,22 @@ public class SpadeController : MonoBehaviour
                     Debug.Log("Spade가 플레이어에게 돌진 공격!");
                 }
                 StartCooldown();
+            }
+        }
+        else if (collision.gameObject.CompareTag("Player"))
+        {
+            if (rb != null)
+            {
+                rb.velocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
+
+            Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (playerRb != null)
+            {
+                Vector2 pushDirection = (collision.transform.position - transform.position).normalized;
+                pushDirection.y = Mathf.Max(pushDirection.y, 0);
+                playerRb.AddForce(pushDirection * 3f, ForceMode2D.Impulse);
             }
         }
     }
