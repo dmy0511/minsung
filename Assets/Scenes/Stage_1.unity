@@ -3577,7 +3577,7 @@ MonoBehaviour:
   headCheckRadius: 0.19
   crushedScale: 0.25
   crushAnimationTime: 0.2
-  chargeSpeed: 12.5
+  chargeSpeed: 5
   chargeDuration: 1
   cooldownTime: 2
   idleAnimName: Idle
