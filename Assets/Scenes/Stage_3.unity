@@ -1581,8 +1581,8 @@ Transform:
   m_GameObject: {fileID: 730993216}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.95, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
+  m_LocalPosition: {x: 3.03, y: -0.0011, z: 0}
+  m_LocalScale: {x: 0.9059498, y: 0.9059498, z: 1.0066109}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 730939319}
@@ -2941,8 +2941,8 @@ MonoBehaviour:
   zoomSpeed: 1
   playerFollowZoom: 3
   dragSpeed: 1
-  leftBound: -8.9
-  rightBound: 14.8
+  leftBound: -8.88
+  rightBound: 14.95
   topBound: 5
   bottomBound: -5
   followSpeed: 5
