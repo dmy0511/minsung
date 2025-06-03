@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
@@ -44,13 +45,19 @@ public class Boss : MonoBehaviour
     public float shakeIntensity = 0.3f;
     public float shakeDuration = 0.5f;
 
+    [Header("페이드 효과 설정")]
+    public float deathDelay = 1f;
+    public float fadeInDuration = 1f;
+    public Color fadeColor = Color.black;
+
     private enum BossState
     {
         Idle,
         Skill1,
         Skill2,
         Groggy,
-        WaitingForEnemies
+        WaitingForEnemies,
+        Dying
     }
 
     private BossState currentState = BossState.Idle;
@@ -70,6 +77,9 @@ public class Boss : MonoBehaviour
     private bool hasUsedSkill2 = false;
     private bool animationStopped = false;
     private int lastEnemyCount = -1;
+
+    private GameObject fadeCanvas;
+    private Image fadeImage;
 
     void Start()
     {
@@ -102,7 +112,37 @@ public class Boss : MonoBehaviour
             staffObject.SetActive(false);
         }
 
+        CreateFadeUI();
+
         SetState(BossState.Idle);
+    }
+
+    void CreateFadeUI()
+    {
+        fadeCanvas = new GameObject("FadeCanvas");
+        Canvas canvas = fadeCanvas.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.sortingOrder = 1000;
+
+        CanvasScaler scaler = fadeCanvas.AddComponent<CanvasScaler>();
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2(1920, 1080);
+
+        fadeCanvas.AddComponent<GraphicRaycaster>();
+
+        GameObject imageObj = new GameObject("FadeImage");
+        imageObj.transform.SetParent(fadeCanvas.transform);
+
+        fadeImage = imageObj.AddComponent<Image>();
+        fadeImage.color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, 0f);
+
+        RectTransform rectTransform = imageObj.GetComponent<RectTransform>();
+        rectTransform.anchorMin = Vector2.zero;
+        rectTransform.anchorMax = Vector2.one;
+        rectTransform.sizeDelta = Vector2.zero;
+        rectTransform.anchoredPosition = Vector2.zero;
+
+        fadeCanvas.SetActive(false);
     }
 
     void Update()
@@ -134,6 +174,9 @@ public class Boss : MonoBehaviour
 
             case BossState.Groggy:
                 HandleGroggyState();
+                break;
+
+            case BossState.Dying:
                 break;
         }
     }
@@ -450,28 +493,80 @@ public class Boss : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            BossDeath();
-            SceneManager.LoadScene("EndingStory");
+            SetState(BossState.Dying);
+            StartCoroutine(BossDeathSequence());
         }
     }
 
-    void BossDeath()
+    IEnumerator BossDeathSequence()
+    {
+        Debug.Log("=== 보스가 죽습니다! ===");
+
+        if (animator != null)
+        {
+            animator.speed = 0f;
+        }
+
+        yield return new WaitForSeconds(deathDelay);
+
+        BossCleanup();
+
+        yield return StartCoroutine(FadeIn());
+
+        SceneManager.LoadScene("EndingStory");
+    }
+
+    IEnumerator FadeIn()
+    {
+        if (fadeCanvas != null && fadeImage != null)
+        {
+            fadeCanvas.SetActive(true);
+
+            float elapsedTime = 0f;
+            Color startColor = fadeImage.color;
+            Color targetColor = new Color(fadeColor.r, fadeColor.g, fadeColor.b, 1f);
+
+            while (elapsedTime < fadeInDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float alpha = Mathf.Lerp(startColor.a, targetColor.a, elapsedTime / fadeInDuration);
+
+                Color currentColor = fadeImage.color;
+                currentColor.a = alpha;
+                fadeImage.color = currentColor;
+
+                yield return null;
+            }
+
+            fadeImage.color = targetColor;
+        }
+    }
+
+    void BossCleanup()
     {
         foreach (GameObject node in activeNodes)
         {
             if (node != null) Destroy(node);
         }
+        activeNodes.Clear();
 
         foreach (GameObject warning in activeWarnings)
         {
             if (warning != null) Destroy(warning);
         }
+        activeWarnings.Clear();
 
-        Destroy(gameObject);
+        if (staffObject != null)
+        {
+            staffObject.SetActive(false);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (currentState == BossState.Dying)
+            return;
+
         if (!isGroggy && collision.gameObject.CompareTag("Player"))
         {
             PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
@@ -493,6 +588,14 @@ public class Boss : MonoBehaviour
         if (animator != null)
         {
             animator.Play(animationName);
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (fadeCanvas != null)
+        {
+            Destroy(fadeCanvas);
         }
     }
 
