@@ -100,19 +100,19 @@ TextureImporter:
       name: "\uCC3D_0"
       rect:
         serializedVersion: 2
-        x: 251
-        y: 125
-        width: 129
-        height: 902
+        x: 242
+        y: 116
+        width: 147
+        height: 920
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5fddb90189a021643881c8521fc50584
-      internalID: -310621777
+      spriteID: c50d65a19f8899c429f9540dccba4b37
+      internalID: -1351637461
       vertices: []
       indices: 
       edges: []
@@ -128,7 +128,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      "\uCC3D_0": -310621777
+      "\uCC3D_0": -1351637461
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

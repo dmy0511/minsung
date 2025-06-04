@@ -100,19 +100,19 @@ TextureImporter:
       name: "\uC5EC\uC655 \uCE74\uB4DC\uC18C\uD658_0"
       rect:
         serializedVersion: 2
-        x: 363
-        y: 403
-        width: 1299
-        height: 1622
+        x: 352
+        y: 395
+        width: 1318
+        height: 1641
       alignment: 9
-      pivot: {x: 0.46, y: 0}
+      pivot: {x: 0.47, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0514b73476b5d0a479cfa6aa905b2326
-      internalID: 1392657509
+      spriteID: 9188b46b599a09547b883279837783a5
+      internalID: 651821763
       vertices: []
       indices: 
       edges: []
@@ -121,19 +121,19 @@ TextureImporter:
       name: "\uC5EC\uC655 \uCE74\uB4DC\uC18C\uD658_1"
       rect:
         serializedVersion: 2
-        x: 2089
-        y: 403
-        width: 1267
-        height: 1622
+        x: 2081
+        y: 395
+        width: 1283
+        height: 1638
       alignment: 9
-      pivot: {x: 0.46, y: 0}
+      pivot: {x: 0.47, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9cc1c2352fb1bf1419d3bd6d91ecef83
-      internalID: 2004343579
+      spriteID: 9cbbe13ceec11604b9c3e171b3c884ce
+      internalID: -1943580785
       vertices: []
       indices: 
       edges: []
@@ -142,19 +142,19 @@ TextureImporter:
       name: "\uC5EC\uC655 \uCE74\uB4DC\uC18C\uD658_2"
       rect:
         serializedVersion: 2
-        x: 3759
-        y: 403
-        width: 1229
-        height: 1641
+        x: 3749
+        y: 393
+        width: 1250
+        height: 1659
       alignment: 9
-      pivot: {x: 0.45, y: 0}
+      pivot: {x: 0.47, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a65bf7aadd8926040a1e83ff28c7470e
-      internalID: -1400213643
+      spriteID: 8165c1440b5b1744eb7b541adbbedecb
+      internalID: 1777855459
       vertices: []
       indices: 
       edges: []
@@ -170,9 +170,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      "\uC5EC\uC655 \uCE74\uB4DC\uC18C\uD658_0": 1392657509
-      "\uC5EC\uC655 \uCE74\uB4DC\uC18C\uD658_1": 2004343579
-      "\uC5EC\uC655 \uCE74\uB4DC\uC18C\uD658_2": -1400213643
+      "\uC5EC\uC655 \uCE74\uB4DC\uC18C\uD658_0": 651821763
+      "\uC5EC\uC655 \uCE74\uB4DC\uC18C\uD658_1": -1943580785
+      "\uC5EC\uC655 \uCE74\uB4DC\uC18C\uD658_2": 1777855459
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
