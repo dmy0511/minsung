@@ -100,10 +100,10 @@ TextureImporter:
       name: "\uC790\uBB3C\uC1E0_0"
       rect:
         serializedVersion: 2
-        x: 791
-        y: 848
-        width: 449
-        height: 424
+        x: 308
+        y: 245
+        width: 1429
+        height: 1747
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,8 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc3d3659cb2927c438bdddb294778e42
-      internalID: -455469469
+      spriteID: 30a944cfb83e4c94e878e4115aeb7534
+      internalID: -1107697489
       vertices: []
       indices: 
       edges: []
@@ -128,7 +128,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      "\uC790\uBB3C\uC1E0_0": -455469469
+      "\uC790\uBB3C\uC1E0_0": -1107697489
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

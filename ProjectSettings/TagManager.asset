@@ -71,6 +71,9 @@ TagManager:
   - name: Bullet
     uniqueID: 1543373913
     locked: 0
+  - name: WoodHead
+    uniqueID: 3354363401
+    locked: 0
   - name: Deco
     uniqueID: 1393505743
     locked: 0
