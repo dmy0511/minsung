@@ -14,6 +14,7 @@ public class Boss : MonoBehaviour
     public string idleAnimName = "Idle";
     public string attack1AnimName = "Attack_1";
     public string attack2AnimName = "Attack_2";
+    public string grogyAnimName = "Grogy";
 
     [Header("스킬 1 설정")]
     public GameObject staffObject;
@@ -33,7 +34,6 @@ public class Boss : MonoBehaviour
 
     [Header("그로기 설정")]
     public float grogginessDuration = 5f;
-    public Color groggyColor = Color.blue;
 
     [Header("머리 밟기 감지")]
     public Transform headCheck;
@@ -63,7 +63,6 @@ public class Boss : MonoBehaviour
     private BossState currentState = BossState.Idle;
     private float stateTimer = 0f;
     private bool isGroggy = false;
-    private Color originalColor;
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -88,11 +87,6 @@ public class Boss : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         mainCamera = Camera.main;
-
-        if (spriteRenderer != null)
-        {
-            originalColor = spriteRenderer.color;
-        }
 
         if (mainCamera != null)
         {
@@ -245,10 +239,6 @@ public class Boss : MonoBehaviour
     void StartSkill1()
     {
         isGroggy = false;
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.color = originalColor;
-        }
 
         SetState(BossState.Skill1);
         PlayAnimation(attack1AnimName);
@@ -279,10 +269,6 @@ public class Boss : MonoBehaviour
         Debug.Log("보스가 스킬 2를 시전합니다!");
 
         isGroggy = false;
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.color = originalColor;
-        }
 
         SetState(BossState.Skill2);
         PlayAnimation(attack2AnimName);
@@ -308,16 +294,11 @@ public class Boss : MonoBehaviour
 
         isGroggy = true;
         SetState(BossState.Groggy);
-        PlayAnimation(idleAnimName);
+        PlayAnimation(grogyAnimName);
 
         if (animator != null)
         {
             animator.speed = 1f;
-        }
-
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.color = groggyColor;
         }
 
         if (staffObject != null)

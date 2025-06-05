@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 8834518100672716323}
   - component: {fileID: 1386192080398785119}
   - component: {fileID: 6957543932137609571}
-  - component: {fileID: 1009974342688290349}
   - component: {fileID: 1273901978506591303}
+  - component: {fileID: 1009974342688290349}
   - component: {fileID: 2486417463653688444}
   - component: {fileID: 2635248242725521998}
   m_Layer: 9
@@ -221,33 +221,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1009974342688290349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4082666053656091798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04a5ea82869bfb940ae3c7d46ffa0c99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectionBoxSize: {x: 6, y: 2.04}
-  detectionBoxOffset: {x: 0, y: 1.02}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  headCheck: {fileID: 7680343137500482757}
-  headCheckRadius: 0.37
-  crushedScale: 0.25
-  crushAnimationTime: 0.2
-  chargeSpeed: 5
-  chargeDuration: 1
-  cooldownTime: 2
-  idleAnimName: Idle
-  attackAnimName: Attack
-  showDetectionRange: 1
 --- !u!82 &1273901978506591303
 AudioSource:
   m_ObjectHideFlags: 0
@@ -344,6 +317,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1009974342688290349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4082666053656091798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a5ea82869bfb940ae3c7d46ffa0c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionBoxSize: {x: 6, y: 2.04}
+  detectionBoxOffset: {x: 0, y: 1.02}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  headCheck: {fileID: 7680343137500482757}
+  headCheckRadius: 0.58
+  crushedScale: 0.25
+  crushAnimationTime: 0.2
+  chargeSpeed: 5
+  chargeDuration: 1
+  cooldownTime: 2
+  idleAnimName: Idle
+  attackAnimName: Attack
+  showDetectionRange: 1
 --- !u!114 &2486417463653688444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,7 +399,7 @@ Transform:
   m_GameObject: {fileID: 6441531673989318435}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 13.74, z: 0}
+  m_LocalPosition: {x: -0.05, y: 14.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

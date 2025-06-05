@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
@@ -194,15 +195,9 @@ public class PlayerHealth : MonoBehaviour
 
     void QuitGame()
     {
-        Debug.Log("게임을 종료합니다.");
+        Debug.Log("타이틀 화면으로 이동합니다.");
 
-#if UNITY_EDITOR
-
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        // 빌드된 게임에서
-        Application.Quit();
-#endif
+        SceneManager.LoadScene("MainScene");
     }
 
     public bool IsInvincible()

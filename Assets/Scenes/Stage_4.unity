@@ -1873,6 +1873,7 @@ MonoBehaviour:
   idleAnimName: Idle
   attack1AnimName: Attack_1
   attack2AnimName: Attack_2
+  grogyAnimName: Grogy
   staffObject: {fileID: 874889597}
   nodePrefab: {fileID: 7044617762081624822, guid: 60adf2b973d24544f939c8d1546bc2d5, type: 3}
   nodeSpawnY: 1.51
@@ -1886,7 +1887,6 @@ MonoBehaviour:
   warningImagePrefab: {fileID: 5707793263317111235, guid: 9711a87ec86495e46a7a143a28cd9ebc, type: 3}
   warningDuration: 2
   grogginessDuration: 2.5
-  groggyColor: {r: 0, g: 0, b: 1, a: 1}
   headCheck: {fileID: 2115267727}
   headCheckRadius: 0.66
   playerLayer:
@@ -2256,7 +2256,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 102.28, y: 66.168144}
+  m_AnchoredPosition: {x: 102.28, y: 70}
   m_SizeDelta: {x: 200, y: 34.5266}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1319501441
@@ -2281,7 +2281,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 100%
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7cb0fe588016ae84da8d88dd73f0f6cb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 69eb3749efc68d14a9a675593b9640ef, type: 2}
   m_sharedMaterial: {fileID: -6028096262896253407, guid: 7cb0fe588016ae84da8d88dd73f0f6cb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2345,7 +2345,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1319501442
@@ -2637,7 +2637,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 102.28, y: -24.1}
+  m_AnchoredPosition: {x: 102.28, y: -20}
   m_SizeDelta: {x: 200, y: 34.5266}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1508309552
@@ -2662,7 +2662,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 100%
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7cb0fe588016ae84da8d88dd73f0f6cb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 69eb3749efc68d14a9a675593b9640ef, type: 2}
   m_sharedMaterial: {fileID: -6028096262896253407, guid: 7cb0fe588016ae84da8d88dd73f0f6cb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2726,7 +2726,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1508309553

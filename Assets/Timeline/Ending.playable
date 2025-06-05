@@ -22,10 +22,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 5.25
+    m_Start: 6.75
     m_ClipIn: 0
     m_Asset: {fileID: -801850526182217314}
-    m_Duration: 1.4999999999999996
+    m_Duration: 2
     m_TimeScale: 1
     m_ParentTrack: {fileID: -8935034857970476737}
     m_EaseInDuration: 0
@@ -139,10 +139,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 6.75
+    m_Start: 8.75
     m_ClipIn: 0
     m_Asset: {fileID: 7034588880983625770}
-    m_Duration: 2.2499999999999996
+    m_Duration: 2.75
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4134257394904922551}
     m_EaseInDuration: 0
@@ -247,7 +247,7 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: -3658449799981389918}
-    m_Duration: 1.5
+    m_Duration: 2
     m_TimeScale: 1
     m_ParentTrack: {fileID: -2703101894687415155}
     m_EaseInDuration: 0
@@ -376,10 +376,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 3
+    m_Start: 4
     m_ClipIn: 0
     m_Asset: {fileID: -5623830756130550426}
-    m_Duration: 2.25
+    m_Duration: 2.75
     m_TimeScale: 1
     m_ParentTrack: {fileID: 1035645974897611739}
     m_EaseInDuration: 0
@@ -481,10 +481,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 1.5
+    m_Start: 2
     m_ClipIn: 0
     m_Asset: {fileID: -8700650290234841893}
-    m_Duration: 1.5
+    m_Duration: 2
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2335842681598854212}
     m_EaseInDuration: 0
@@ -574,10 +574,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 3.7499999999999996
+    m_Start: 4.75
     m_ClipIn: 0
     m_Asset: {fileID: 8420381232091317870}
-    m_Duration: 1.5000000000000004
+    m_Duration: 2.0000000000000004
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2452368354868954458}
     m_EaseInDuration: 0
@@ -667,10 +667,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 7.5
+    m_Start: 9.5
     m_ClipIn: 0
     m_Asset: {fileID: 1583747290489203326}
-    m_Duration: 1.5000000000000004
+    m_Duration: 2
     m_TimeScale: 1
     m_ParentTrack: {fileID: 3082331420511766889}
     m_EaseInDuration: 0

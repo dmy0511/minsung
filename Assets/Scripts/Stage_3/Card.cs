@@ -7,6 +7,7 @@ public class Card : MonoBehaviour
     [Header("카드 설정")]
     public CardType cardType;
     public Vector2 pickupBoxSize = new Vector2(2f, 2f);
+    public Vector2 pickupBoxOffset = new Vector2(0f, 0f);
 
     [Header("사운드 설정")]
     public AudioClip collectSound;
@@ -44,7 +45,18 @@ public class Card : MonoBehaviour
     {
         if (other.CompareTag("Player") && !isCollected)
         {
-            CollectCard();
+            Vector2 boxCenter = (Vector2)transform.position + pickupBoxOffset;
+            Vector2 playerPosition = other.transform.position;
+
+            bool isInPickupArea = (playerPosition.x >= boxCenter.x - pickupBoxSize.x / 2f) &&
+                                  (playerPosition.x <= boxCenter.x + pickupBoxSize.x / 2f) &&
+                                  (playerPosition.y >= boxCenter.y - pickupBoxSize.y / 2f) &&
+                                  (playerPosition.y <= boxCenter.y + pickupBoxSize.y / 2f);
+
+            if (isInPickupArea)
+            {
+                CollectCard();
+            }
         }
     }
 
@@ -57,7 +69,6 @@ public class Card : MonoBehaviour
             if (canCollect)
             {
                 PlayCollectSoundAtPoint();
-
                 isCollected = true;
                 gameObject.SetActive(false);
             }
@@ -109,9 +120,15 @@ public class Card : MonoBehaviour
         return cardType;
     }
 
+    public Vector2 GetPickupBoxCenter()
+    {
+        return (Vector2)transform.position + pickupBoxOffset;
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position, pickupBoxSize);
+        Vector2 boxCenter = (Vector2)transform.position + pickupBoxOffset;
+        Gizmos.DrawWireCube(boxCenter, pickupBoxSize);
     }
 }

@@ -8,6 +8,11 @@ public class PrisonLock : MonoBehaviour
     public GameObject prisonBars;
     public GameObject player;
 
+    [Header("메시지 설정")]
+    public GameObject messageCanvas;
+    public GameObject unlockMessage;
+    public float messageDisplayTime = 3.0f;
+
     [Header("설정")]
     public float unlockDelay = 0.5f;
     public bool enablePlayerAfterUnlock = true;
@@ -18,6 +23,16 @@ public class PrisonLock : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (messageCanvas != null)
+        {
+            messageCanvas.SetActive(false);
+        }
+
+        if (unlockMessage != null)
+        {
+            unlockMessage.SetActive(false);
+        }
 
         if (player != null && enablePlayerAfterUnlock)
         {
@@ -41,6 +56,8 @@ public class PrisonLock : MonoBehaviour
     {
         isUnlocked = true;
 
+        ShowUnlockMessage();
+
         float shakeTime = 0.3f;
         float elapsedTime = 0;
         Vector3 originalPosition = transform.position;
@@ -52,13 +69,11 @@ public class PrisonLock : MonoBehaviour
                 Random.Range(-0.1f, 0.1f),
                 0
             );
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         transform.position = originalPosition;
-
         yield return new WaitForSeconds(unlockDelay);
 
         if (spriteRenderer != null)
@@ -71,7 +86,6 @@ public class PrisonLock : MonoBehaviour
             {
                 float alpha = Mathf.Lerp(1, 0, elapsedTime / fadeTime);
                 spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
-
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
@@ -95,10 +109,35 @@ public class PrisonLock : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void ShowUnlockMessage()
+    {
+        if (messageCanvas != null && unlockMessage != null)
+        {
+            messageCanvas.SetActive(true);
+            unlockMessage.SetActive(true);
+
+            StartCoroutine(HideMessageAfterDelay());
+        }
+    }
+
+    private IEnumerator HideMessageAfterDelay()
+    {
+        yield return new WaitForSeconds(messageDisplayTime);
+
+        if (messageCanvas != null)
+        {
+            messageCanvas.SetActive(false);
+        }
+
+        if (unlockMessage != null)
+        {
+            unlockMessage.SetActive(false);
+        }
+    }
+
     private IEnumerator FadeOutObject(GameObject obj)
     {
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
-
         float fadeTime = 1.0f;
         float elapsedTime = 0;
 
