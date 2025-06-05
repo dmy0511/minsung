@@ -1035,3 +1035,10 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.41666666
+    functionName: PlaySound
+    data: "\uCC3D \uCC0C\uB974\uAE30"
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
