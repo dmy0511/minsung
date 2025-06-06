@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Card : MonoBehaviour
 {
     [Header("카드 설정")]
     public CardType cardType;
-    public Vector2 pickupBoxSize = new Vector2(2f, 2f);
-    public Vector2 pickupBoxOffset = new Vector2(0f, 0f);
+
+    [Header("상호작용 설정")]
+    public KeyCode interactionKey = KeyCode.E;
+
+    [Header("UI 설정")]
+    public Canvas interactionCanvas;
+    public float blinkSpeed = 2f;
 
     [Header("사운드 설정")]
     public AudioClip collectSound;
@@ -15,8 +21,11 @@ public class Card : MonoBehaviour
 
     private Vector3 originalPosition;
     private bool isCollected = false;
+    private bool playerInRange = false;
     private SpriteRenderer spriteRenderer;
     private Collider2D cardCollider;
+    private TMP_Text interactionText;
+    private Coroutine blinkCoroutine;
 
     public enum CardType
     {
@@ -34,6 +43,12 @@ public class Card : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         cardCollider = GetComponent<Collider2D>();
 
+        if (interactionCanvas != null)
+        {
+            interactionText = interactionCanvas.GetComponentInChildren<TMP_Text>();
+            interactionCanvas.gameObject.SetActive(false);
+        }
+
         CardManager cardManager = FindObjectOfType<CardManager>();
         if (cardManager != null)
         {
@@ -41,22 +56,86 @@ public class Card : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (playerInRange && !isCollected && Input.GetKeyDown(interactionKey))
+        {
+            CollectCard();
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isCollected)
         {
-            Vector2 boxCenter = (Vector2)transform.position + pickupBoxOffset;
-            Vector2 playerPosition = other.transform.position;
+            ShowInteractionUI();
+        }
+    }
 
-            bool isInPickupArea = (playerPosition.x >= boxCenter.x - pickupBoxSize.x / 2f) &&
-                                  (playerPosition.x <= boxCenter.x + pickupBoxSize.x / 2f) &&
-                                  (playerPosition.y >= boxCenter.y - pickupBoxSize.y / 2f) &&
-                                  (playerPosition.y <= boxCenter.y + pickupBoxSize.y / 2f);
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            HideInteractionUI();
+        }
+    }
 
-            if (isInPickupArea)
+    void ShowInteractionUI()
+    {
+        playerInRange = true;
+
+        if (interactionCanvas != null)
+        {
+            interactionCanvas.gameObject.SetActive(true);
+
+            if (interactionText != null)
             {
-                CollectCard();
+                interactionText.text = $"{interactionKey}";
             }
+
+            if (blinkCoroutine != null)
+            {
+                StopCoroutine(blinkCoroutine);
+            }
+            blinkCoroutine = StartCoroutine(BlinkText());
+        }
+    }
+
+    void HideInteractionUI()
+    {
+        playerInRange = false;
+
+        if (interactionCanvas != null)
+        {
+            interactionCanvas.gameObject.SetActive(false);
+        }
+
+        if (blinkCoroutine != null)
+        {
+            StopCoroutine(blinkCoroutine);
+            blinkCoroutine = null;
+        }
+    }
+
+    IEnumerator BlinkText()
+    {
+        if (interactionText == null) yield break;
+
+        while (playerInRange && !isCollected)
+        {
+            float alpha = Mathf.PingPong(Time.time * blinkSpeed, 1f);
+            Color textColor = interactionText.color;
+            textColor.a = alpha;
+            interactionText.color = textColor;
+
+            yield return null;
+        }
+
+        if (interactionText != null)
+        {
+            Color textColor = interactionText.color;
+            textColor.a = 1f;
+            interactionText.color = textColor;
         }
     }
 
@@ -70,6 +149,7 @@ public class Card : MonoBehaviour
             {
                 PlayCollectSoundAtPoint();
                 isCollected = true;
+                HideInteractionUI();
                 gameObject.SetActive(false);
             }
             else
@@ -96,6 +176,7 @@ public class Card : MonoBehaviour
     public void ResetCard()
     {
         isCollected = false;
+        playerInRange = false;
         transform.position = originalPosition;
         gameObject.SetActive(true);
 
@@ -103,11 +184,12 @@ public class Card : MonoBehaviour
         {
             spriteRenderer.enabled = true;
         }
-
         if (cardCollider != null)
         {
             cardCollider.enabled = true;
         }
+
+        HideInteractionUI();
     }
 
     public bool IsCollected()
@@ -122,13 +204,6 @@ public class Card : MonoBehaviour
 
     public Vector2 GetPickupBoxCenter()
     {
-        return (Vector2)transform.position + pickupBoxOffset;
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Vector2 boxCenter = (Vector2)transform.position + pickupBoxOffset;
-        Gizmos.DrawWireCube(boxCenter, pickupBoxSize);
+        return (Vector2)transform.position;
     }
 }

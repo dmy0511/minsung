@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 11f;
 
     [Header("지면 감지")]
-    public Transform groundCheck;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private Vector3 groundCheckOffset = new Vector3(0, -0.5f, 0);
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
 
@@ -26,7 +27,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
-
     private bool isGrounded;
     private bool isJumping;
     private float moveInput;
@@ -38,13 +38,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
-        if (groundCheck == null)
-        {
-            GameObject checkObj = new GameObject("GroundCheck");
-            checkObj.transform.parent = transform;
-            checkObj.transform.localPosition = new Vector3(0, -0.5f, 0);
-            groundCheck = checkObj.transform;
-        }
+        CreateGroundCheckIfNeeded();
 
         if (animator == null)
         {
@@ -56,12 +50,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        HandleInput();
+        UpdateGroundCheckPosition();
 
+        HandleInput();
         if (Input.GetKeyDown(jumpKey) && isGrounded)
         {
             isJumping = true;
-            
             PlayAnimation(jumpAnimName);
         }
     }
@@ -77,7 +71,6 @@ public class PlayerController : MonoBehaviour
     void HandleInput()
     {
         moveInput = 0;
-
         if (Input.GetKey(leftKey))
         {
             moveInput -= 1;
@@ -100,7 +93,6 @@ public class PlayerController : MonoBehaviour
         {
             spriteRenderer.flipX = moveInput < 0;
         }
-
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
     }
 
@@ -153,12 +145,47 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnDrawGizmosSelected()
+    private void UpdateGroundCheckPosition()
     {
         if (groundCheck != null)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+            groundCheck.localPosition = groundCheckOffset;
+        }
+    }
+
+    void OnValidate()
+    {
+        if (groundCheck != null)
+        {
+            UpdateGroundCheckPosition();
+        }
+        else if (!Application.isPlaying)
+        {
+            CreateGroundCheckIfNeeded();
+        }
+    }
+
+    private void CreateGroundCheckIfNeeded()
+    {
+        if (groundCheck == null)
+        {
+            GameObject checkObj = new GameObject("Check");
+            checkObj.transform.parent = transform;
+            groundCheck = checkObj.transform;
+            UpdateGroundCheckPosition();
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Vector3 gizmoPosition = transform.position + groundCheckOffset;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(gizmoPosition, groundCheckRadius);
+
+        if (groundCheck != null && groundCheck.localPosition != groundCheckOffset)
+        {
+            UpdateGroundCheckPosition();
         }
     }
 }

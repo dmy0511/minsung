@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
     private bool isFollowingPlayer = false;
     private Vector3 lastPlayerPosition;
     private float playerIdleTime = 0f;
-    private float maxIdleTime = 3f;
+    private float maxIdleTime = 0.5f;
 
     void Start()
     {
