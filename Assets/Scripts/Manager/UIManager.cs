@@ -22,10 +22,6 @@ public class UIManager : MonoBehaviour
 
     public void OnQuitButton()
     {
-        Application.Quit();
-
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
+        SceneManager.LoadScene("MainScene");
     }
 }
