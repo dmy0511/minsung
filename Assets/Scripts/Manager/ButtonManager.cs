@@ -14,6 +14,8 @@ public class ButtonManager : MonoBehaviour
     public float fadeTransitionTime = 1.0f;
 
     [Header("버튼 설정")]
+    public GameObject exPanel;
+    public Button exButton;
     public Button startButton;
     public Button quitButton;
 
@@ -21,6 +23,11 @@ public class ButtonManager : MonoBehaviour
 
     void Start()
     {
+        if (exPanel != null)
+        {
+            exPanel.SetActive(false);
+        }
+
         if (startButton == null)
         {
             FindStartButton();
@@ -82,6 +89,26 @@ public class ButtonManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Exit Button을 찾을 수 없습니다. Inspector에서 직접 연결해주세요.");
+        }
+    }
+
+    public void OnExButtonClicked()
+    {
+        Debug.Log("설명 버튼이 클릭되었습니다.");
+
+        if (exPanel != null)
+        {
+            bool isActive = exPanel.activeSelf;
+            exPanel.SetActive(!isActive);
+
+            if (isActive)
+            {
+                Debug.Log("설명 패널이 비활성화되었습니다.");
+            }
+            else
+            {
+                Debug.Log("설명 패널이 활성화되었습니다.");
+            }
         }
     }
 
